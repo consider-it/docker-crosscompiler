@@ -3,24 +3,26 @@ As [dockcross](http://github.com/dockcross/dockcross) (or crosstool-ng) doesn't 
 
 ## Usage
 Docker containers are pushed to the GitHub container registry (ghcr.io) by a build pipeline on new tags.
-To build them yourself, run `docker build` on the individual dockerfiles like this:
-```shell
-cd linux-gnueabihf-debian11
-docker build -t $some_useful_name .
-```
-
 All dockerfiles support these build tools:
 - GNU make
+- Python 3
 
 To cross-compile something, mount the working directory to `/work` and run your make command like this:
 ```shell
 docker run --rm -v $(pwd):/work ghcr.io/considerit/cross-linux-armhf-debian11 make $target
 ```
 
+If you want to build the images yourself, run `docker build` on the individual dockerfiles like this:
+```shell
+cd linux-gnueabihf-debian11
+docker build -t $some_useful_name .
+```
+Don't forget to replace the ghcr.io name with your tag in the `docker run` command.
+
 ## Images and Library Versions
 
-Image                   | arch    | gcc | glibc
------------------------ | ------- | --- | -----
+Image                   | arch    | gcc | glibc
+----------------------- | ------- | --- | ------
 linux-aarch64-debian11  | aarch64 |  10 | 2.31
 linux-armhf-ubuntu18    | armhf   |   7 | 2.27
 linux-armhf-debian10    | armhf   |   8 | 2.28
