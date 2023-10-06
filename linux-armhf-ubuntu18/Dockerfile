@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 
 ARG workdir=/work
+ENV CROSS_SYSROOT=/var/cross-sysroot
 
 # install basic utilities
 RUN apt update && apt -y install git rsync python3
@@ -12,6 +13,13 @@ RUN git config --global --add safe.directory $workdir
 RUN apt -y install g++-arm-linux-gnueabihf
 
 # install basic build tools
-RUN apt -y install build-essential make ccache
+RUN apt -y install build-essential make ccache cmake ninja-build
+
+# setup CMake for cross-compiling
+RUN mkdir -p ${CROSS_SYSROOT}/include/
+RUN mkdir -p ${CROSS_SYSROOT}/lib/
+ENV CMAKE_TOOLCHAIN_FILE=${CROSS_SYSROOT}/toolchain.cmake
+COPY linux-armhf-tc.cmake ${CMAKE_TOOLCHAIN_FILE}
+COPY cmake-cross.sh /usr/bin/cmake-cross
 
 WORKDIR $workdir

@@ -6,10 +6,19 @@ Docker containers are pushed to the GitHub container registry (ghcr.io) by a bui
 All dockerfiles support these build tools:
 - GNU make
 - Python 3
+- CMake (with Ninja)
 
 To cross-compile something, mount the working directory to `/work` and run your make command like this:
 ```shell
 docker run --rm -v $(pwd):/work ghcr.io/considerit/cross-linux-armhf-debian11 make $target
+```
+
+To cross-compile with CMake, a toolchain file is used which expects libraries in `$CROSS_SYSROOT/lib` and includes in `$CROSS_SYSROOT/include`.
+```shell
+# add -DCMAKE_TOOLCHAIN_FILE=/var/cross-sysroot/toolchain.cmake to your cmake call or use wrapper script on config step
+docker run --rm -v $(pwd):/work ghcr.io/considerit/cross-linux-armhf-debian11 cmake-cross -B ./build-armhf
+
+docker run --rm -v $(pwd):/work ghcr.io/considerit/cross-linux-armhf-debian11 cmake --build ./build-armhf
 ```
 
 If you want to build the images yourself, run `docker build` on the individual dockerfiles like this:
