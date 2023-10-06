@@ -1,14 +1,17 @@
 FROM debian:11-slim
 
-RUN apt update
+ARG workdir=/work
 
-# install basic build tools
-RUN apt -y install make git ccache rsync python3
+# install basic utilities
+RUN apt update && apt -y install git rsync python3
+
+# git might complain about ownership, so ignore it
+RUN git config --global --add safe.directory $workdir
 
 # install armhf cross-compiler
 RUN apt -y install g++-arm-linux-gnueabihf
 
-# git might complain about ownership, so ignore it
-RUN git config --global --add safe.directory /work
+# install basic build tools
+RUN apt -y install make ccache
 
-WORKDIR /work
+WORKDIR $workdir
