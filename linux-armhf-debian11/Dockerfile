@@ -12,6 +12,6 @@ RUN git config --global --add safe.directory $workdir
 RUN apt -y install g++-arm-linux-gnueabihf
 
 # install basic build tools
-RUN apt -y install make ccache
+RUN apt -y install build-essential make ccache
 
 WORKDIR $workdir
