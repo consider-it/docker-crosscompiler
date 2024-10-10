@@ -32,7 +32,9 @@ Don't forget to replace the ghcr.io name with your tag in the `docker run` comma
 
 Image                   | arch    | gcc | glibc
 ----------------------- | ------- | --- | ------
-linux-aarch64-debian11  | aarch64 |  10 | 2.31
-linux-armhf-ubuntu18    | armhf   |   7 | 2.27
-linux-armhf-debian10    | armhf   |   8 | 2.28
-linux-armhf-debian11    | armhf   |  10 | 2.31
+linux-aarch64-debian11  | aarch64 |  10 | 2.31
+linux-aarch64-debian12  | aarch64 |  12 | 2.36
+linux-armhf-ubuntu18    | armhf   |   7 | 2.27
+linux-armhf-debian10    | armhf   |   8 | 2.28
+linux-armhf-debian11    | armhf   |  10 | 2.31
+linux-armhf-debian12    | armhf   |  12 | 2.36
